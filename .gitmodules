@@ -1,0 +1,3 @@
+[submodule "deps/cppnmea"]
+	path = deps/cppnmea
+	url = https://github.com/jtlobdell/cppnmea
