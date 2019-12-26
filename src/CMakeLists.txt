@@ -1,5 +1,7 @@
 set(SOURCES
 	${SOURCES}
 	${CMAKE_CURRENT_SOURCE_DIR}/tracker.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Defaults.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Configuration.cpp
 	PARENT_SCOPE
 )

@@ -6,6 +6,7 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/algorithm/string.hpp>
+#include <skitracker/config/Configuration.hpp>
 
 namespace {
 boost::asio::serial_port *ser;
@@ -113,15 +114,16 @@ void start_serial_receive()
 void handle_serial_receive(const boost::system::error_code&, std::size_t bytes_transferred)
 {
     std::string line(std::istreambuf_iterator<char>{&data}, std::istreambuf_iterator<char>());
-    boost::trim_right(line);
     p.parse(line);
     start_serial_receive();
 }
 
 int main(int argc, char *argv[])
 {
+    config::init("config.ini");
+    
     boost::asio::io_context ioc;
-    ser = new boost::asio::serial_port(ioc, "/dev/ttyS0");
+    ser = new boost::asio::serial_port(ioc, config::get("gps.serialport"));
 
     p.setCallback<nmea::gpgga>(&print_gpgga);
     

@@ -44,6 +44,7 @@ if (ERROR_MISSING_DEP)
 endif()
 
 include_directories(
+  inc
   deps/cppnmea/include
   ${Boost_INCLUDE_DIRS}
 )
