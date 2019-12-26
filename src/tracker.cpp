@@ -103,20 +103,6 @@ void print_gpgga(const nmea::gpgga& gga)
 
 } // anonymous namespace
 
-void start_serial_receive();
-void handle_serial_receive(const boost::system::error_code&, std::size_t);
-
-void start_serial_receive()
-{
-    boost::asio::async_read_until(*ser, data, '\n', &handle_serial_receive);
-}
-
-void handle_serial_receive(const boost::system::error_code&, std::size_t bytes_transferred)
-{
-    std::string line(std::istreambuf_iterator<char>{&data}, std::istreambuf_iterator<char>());
-    p.parse(line);
-    start_serial_receive();
-}
 
 int main(int argc, char *argv[])
 {
