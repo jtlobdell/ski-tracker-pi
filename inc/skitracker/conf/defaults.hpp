@@ -3,10 +3,10 @@
 
 #include <string>
 
-namespace config::defaults {
+namespace conf::defaults {
 
 const std::string& get(const std::string&);
 
-} // namespace config::defaults
+} // namespace conf::defaults
 
 #endif

@@ -1,13 +1,9 @@
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <array>
+#include <skitracker/conf/config.hpp>
+#include <skitracker/io/gps_handler.hpp>
 #include <cppnmea.hpp>
 #include <boost/asio.hpp>
-#include <boost/bind.hpp>
-#include <boost/algorithm/string.hpp>
-#include <skitracker/config/Configuration.hpp>
 
+/*
 namespace {
 boost::asio::serial_port *ser;
 boost::asio::streambuf data;
@@ -102,12 +98,21 @@ void print_gpgga(const nmea::gpgga& gga)
 }
 
 } // anonymous namespace
-
+*/
 
 int main(int argc, char *argv[])
 {
-    config::init("config.ini");
+    conf::config config("config.ini");
+    boost::asio::io_context ioc;
+    io::gps_handler gps(ioc, config);
+    //io::imu_handler imu = io::imu_handler(ioc, conf);
+
+    gps.start();
+    //imu.start();
     
+    ioc.run();
+    
+    /*
     boost::asio::io_context ioc;
     ser = new boost::asio::serial_port(ioc, config::get("gps.serialport"));
 
@@ -122,5 +127,6 @@ int main(int argc, char *argv[])
     ioc.run();
     
     delete ser;
+    */
     return 0;
 }
